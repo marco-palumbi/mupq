@@ -114,9 +114,9 @@ elf/$(2)_%.elf: mupq/crypto_$(3)/%.c obj/lib$(2).a $$$$(LINKDEPS) $$(CONFIG)
 endif
 
 # Add the elf,bin and hex files to the tests target.
-tests: elf/$(2)_test.elf elf/$(2)_speed.elf elf/$(2)_hashing.elf elf/$(2)_stack.elf elf/$(2)_testvectors.elf
-tests-bin: bin/$(2)_test.bin bin/$(2)_speed.bin bin/$(2)_hashing.bin bin/$(2)_stack.bin bin/$(2)_testvectors.bin
-tests-hex: bin/$(2)_test.hex bin/$(2)_speed.hex bin/$(2)_hashing.hex bin/$(2)_stack.hex bin/$(2)_testvectors.hex
+tests: elf/$(2)_test.elf elf/$(2)_speed.elf elf/$(2)_hashing.elf elf/$(2)_stack.elf elf/$(2)_testvectors.elf elf/$(2)_profile.elf
+tests-bin: bin/$(2)_test.bin bin/$(2)_speed.bin bin/$(2)_hashing.bin bin/$(2)_stack.bin bin/$(2)_testvectors.bin bin/$(2)_profile.bin
+tests-hex: bin/$(2)_test.hex bin/$(2)_speed.hex bin/$(2)_hashing.hex bin/$(2)_stack.hex bin/$(2)_testvectors.hex bin/$(2)_profile.hex
 
 ifneq ($(filter $(HOST_IMPLEMENTATIONS),$(2)),)
 bin-host/$(2)_testvectors: HOST_CPPFLAGS+=-I$(1)
