@@ -1,5 +1,6 @@
 #include "api.h"
 #include "hal.h"
+#include "hal-tracetx.h"
 #include "sendfn.h"
 
 #include <stdio.h>
@@ -27,6 +28,10 @@
 
 #define printcycles(S, U) send_unsignedll((S), (U))
 
+/* Globals */
+uint8_t txbuffer0[256]="Set the peripheral to control DMA flow. Useful w\n";
+uint8_t txbuffer1[256]="Reset all stream interrupt flags using the inter\n";
+
 int main(void)
 {
   unsigned char sk[MUPQ_CRYPTO_SECRETKEYBYTES];
@@ -38,6 +43,25 @@ int main(void)
   hal_setup(CLOCK_BENCHMARK);
 
   hal_send_str("==========================");
+
+	tracetx_dma_setup();
+	tracetx_set_lenght(49);
+
+	for (i = 0; i < 10; i++) {
+
+		tracetx_start(txbuffer0);
+
+		// busy wait for DMA transfer complete
+		tracetx_wait();
+
+		tracetx_start(txbuffer1);
+
+		// busy wait for DMA transfer complete
+		tracetx_wait();
+	}
+
+
+	while (1);
 
   for(i=0;i<MUPQ_ITERATIONS; i++)
   {
